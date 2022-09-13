@@ -1,0 +1,68 @@
+<body bgcolor="#F0F0F0">
+  <font face="Trebuchet MS">
+  <center>
+    <h1>DATA PEGAWAI</h1>
+    <table align='center' border='1' cellpadding='5' cellspacing='0'>
+    <thead>
+      <tr bgcolor="#C3F8FF">
+        <th>No</th>
+        <th>Nama</th>
+        <th>Jabatan</th>
+        <th>Agama</th>
+        <th>Gaji Pokok</th>
+        <th>Tunjangan Jabatan</th>
+        <th>Tunjangan Kesehatan</th>
+        <th>Gaji Kotor</th>
+        <th>Zakat Profesi</th>
+        <th>Take Home Pay</th>
+      </tr>
+    </thead>
+
+    <script language="Javascript">
+      var no, jabatan, warna, agama;
+      let gajiPokok = 0;
+
+      for(no = 1; no <= 100; no++){
+        warna = (no % 2 == 1) ? '#F2DF3A ' : '#3AB4F2';
+        agama = (no % 2 == 1) ? 'Islam' : 'Non Islam';
+
+        if (no <= 25) jabatan = 'Manager';
+        else if (no >= 26 && no <= 50) jabatan = 'Asisten Manager';
+        else if (no >= 51 && no <= 75) jabatan = 'Supervisor';
+        else jabatan = 'Staff';
+
+        switch(jabatan){
+          case 'Manager' : gajiPokok = 15000000; break;
+          case 'Asisten Manager' : gajiPokok = 10000000; break;
+          case 'Supervisor' : gajiPokok = 7000000; break;
+          case 'Staff' : gajiPokok = 4000000; break;
+        }
+
+        let tunjanganJabatan = 0.2 * gajiPokok;
+        let tunjanganKesehatan = 0.1 * gajiPokok;
+
+        let gajiKotor = gajiPokok + tunjanganJabatan + tunjanganKesehatan;
+
+        let zakatProfesi = (no % 2 == 1 && gajiKotor >= 7000000) ? 0.025 * gajiKotor : 0;
+
+        let takehomePay = gajiKotor - zakatProfesi;
+
+        document.write(`
+        <tr bgcolor="${warna}">
+          <td align="center">${no}</td>
+          <td align="center">Pegawai ${no}</td>
+          <td align="center">${jabatan}</td>
+          <td align="center">${agama}</td>
+          <td align="right" width="150px">Rp ${gajiPokok.toLocaleString('id')}</td>
+          <td align="right" width="150px">Rp ${tunjanganJabatan.toLocaleString('id')}</td>
+          <td align="right" width="150px">Rp ${tunjanganKesehatan.toLocaleString('id')}</td>
+          <td align="right" width="150px">Rp ${gajiKotor.toLocaleString('id')}</td>
+          <td align="right" width="150px">Rp ${zakatProfesi.toLocaleString('id')}</td>
+          <td align="right" width="150px"><b>Rp ${takehomePay.toLocaleString('id')}</b></td>
+        </tr>`);
+      }
+    </script>
+    </table>
+  </center>
+  </font>
+</body>
